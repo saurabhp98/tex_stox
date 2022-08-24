@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tex_stox/constants/strings.dart';
@@ -9,11 +11,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: InkWell(
-              child: Text("click to go to the dashboard"),
-              onTap: () => Navigator.pushNamed(context, kDashBoard))),
+    Timer(
+      Duration(seconds: 2),
+      () => Navigator.popAndPushNamed(context, kDashBoard),
     );
+    return Scaffold(
+        body: Center(
+      child: Text("click to go to the dashboard"),
+    ));
   }
 }

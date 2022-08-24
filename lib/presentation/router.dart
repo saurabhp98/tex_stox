@@ -34,10 +34,12 @@ class AppRouter {
 
             builder: (_) => BlocProvider.value(
                   value: clientCubit,
-                  child: ClientScreen(),
+                  child: App(),
                 ));
       case kClientPageRoute:
-        return MaterialPageRoute(builder: (_) => ClientScreen());
+        return MaterialPageRoute(
+            builder: (_) =>
+                BlocProvider.value(value: clientCubit, child: ClientScreen()));
       case kDashBoard:
         return MaterialPageRoute(builder: (_) => Dashboard());
       case kAddClientRoute:
