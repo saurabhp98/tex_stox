@@ -27,7 +27,10 @@ class _AddClientState extends State<AddClient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.grey),
+        backgroundColor: Colors.white,
+      ),
       // adding the bloclistner for accessing the state and changing it
       body: BlocListener<AddClientCubit, AddClientState>(
         listener: (context, state) {

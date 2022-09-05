@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tex_stox/constants/strings.dart';
+import 'package:tex_stox/cubit/dashboard_cubit/dashboard_cubit.dart';
+import 'package:tex_stox/data/models/dashboard_model.dart';
+import 'package:tex_stox/data/services/dashboard_services.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -11,6 +15,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<DashboardCubit>(context).fetchDashboardData();
     return Scaffold(
         drawer: drawerSideBar(),
         appBar: AppBar(
@@ -22,154 +27,212 @@ class _DashboardState extends State<Dashboard> {
           title: Text("TexStox", style: TextStyle(color: Colors.blueGrey)),
         ),
         bottomNavigationBar: BottomNavBar(),
-        body: Column(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 8, left: 8, right: 4, top: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.greenAccent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        padding: EdgeInsets.only(
-                            bottom: 8, left: 8, right: 4, top: 8),
-                        height: double.infinity,
-                        child: Text('hi'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 4, top: 8, bottom: 8, right: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.redAccent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        height: double.infinity,
-                        child: Text('hello'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: BlocBuilder<DashboardCubit, DashboardState>(
+          builder: (context, state) {
+            if (state is! DashboardLoaded) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final currentStockData = state.currentStockMtr;
+
+            return Column(
               children: [
-                Form(
-                    child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade400,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4),
-                            child: Icon(Icons.search, size: 20),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width - 40,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding:
-                                      EdgeInsets.fromLTRB(10, 10, 10, 0),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 8, left: 8, right: 4, top: 8),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.greenAccent,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              padding: EdgeInsets.only(
+                                  bottom: 8, left: 8, right: 4, top: 8),
+                              height: double.infinity,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Current Stock',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  StreamBuilder<dynamic>(
+                                      stream: state.currentStockMtr,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+                                        return Text(
+                                          snapshot.data.toString(),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                        );
+                                      })
+                                ],
+                              )),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 4, top: 8, bottom: 8, right: 8),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.redAccent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            height: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  'Sold Meter',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
+                                StreamBuilder<dynamic>(
+                                    stream: state.soldStockMtr,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+                                      return Text(
+                                        snapshot.data.toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      );
+                                    }),
+                              ],
                             ),
                           ),
-                        ],
-                      )),
-                ))
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width - 20,
-                    decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 1,
-                      )),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Sort No.',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
                         ),
-                        Text('Grade',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                        Text('mtr',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                )
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Form(
+                        child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Icon(Icons.search, size: 20),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width - 40,
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      isDense: true,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ))
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 20,
+                        decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                            color: Colors.grey,
+                            width: 1,
+                          )),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Sort No.',
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text('Grade',
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text('mtr',
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Expanded(
+                  flex: 2,
+                  child: StreamBuilder<List<DashboardModel>>(
+                      stream: state.dashboardList,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return ListView(
+                            children: snapshot.data!
+                                .map((e) => StockDetailsWidget(
+                                    grade: e.grade,
+                                    mtr: '${e.mtr}',
+                                    sortName: e.sort_name))
+                                .toList());
+                      }),
+                ),
               ],
-            ),
-            Expanded(
-              flex: 2,
-              child: ListView(children: [
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-                StockDetailsWidget(),
-              ]),
-            ),
-          ],
+            );
+          },
         ));
   }
 
@@ -392,7 +455,9 @@ class BottomNavBar extends StatelessWidget {
                   backgroundColor:
                       MaterialStateProperty.all(Colors.greenAccent),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<DashboardCubit>(context).fetchDashboardData();
+                },
                 child: Text('Add Stock')),
           ),
           FloatingActionButton(
@@ -520,10 +585,15 @@ class BottomSheetElement extends StatelessWidget {
 }
 
 class StockDetailsWidget extends StatelessWidget {
-  const StockDetailsWidget({
-    Key? key,
-  }) : super(key: key);
-
+  StockDetailsWidget(
+      {Key? key,
+      required this.grade,
+      required this.mtr,
+      required this.sortName})
+      : super(key: key);
+  String sortName;
+  String grade;
+  String mtr;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -544,9 +614,9 @@ class StockDetailsWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('2101'),
-                Text('A+'),
-                Text('35'),
+                Text(sortName),
+                Text(grade),
+                Text(mtr),
               ],
             ),
           ),

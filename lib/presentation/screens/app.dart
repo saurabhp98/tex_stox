@@ -12,7 +12,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(
-      Duration(seconds: 2),
+      Duration(seconds: 0),
       () => Navigator.popAndPushNamed(context, kDashBoard),
     );
     return Scaffold(

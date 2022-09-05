@@ -24,6 +24,8 @@ class EditClient extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Client'),
+        iconTheme: IconThemeData(color: Colors.grey),
+        backgroundColor: Colors.white,
       ),
       body: BlocListener<EditClientCubit, EditClientState>(
         listener: (context, state) {

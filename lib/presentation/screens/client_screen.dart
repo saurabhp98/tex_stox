@@ -18,7 +18,9 @@ class ClientScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('TexStox'),
+          title: Text('TexStox', style: TextStyle(color: Colors.blueGrey)),
+          iconTheme: IconThemeData(color: Colors.grey),
+          backgroundColor: Colors.white,
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -62,7 +64,7 @@ Widget _clientList(ClientModel client, context) {
     child: Container(
       margin: EdgeInsets.all(3),
       decoration: BoxDecoration(
-          color: Colors.amberAccent,
+          color: Colors.teal,
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,14 +72,31 @@ Widget _clientList(ClientModel client, context) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
-              children: [Text(client.name), Text("${client.mobileNumber}")],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Name",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade100)),
+                Text("${client.name}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade100))
+              ],
             ),
             Column(
-              children: [Text("Purchase"), Text("${client.id}")],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Mobile",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade100)),
+                Text("${client.mobileNumber}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade100))
+              ],
             ),
-            Column(
-              children: [Text("Sale"), Text("${client.sale}")],
-            )
           ],
         ),
       ),
