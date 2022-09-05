@@ -10,6 +10,7 @@ import 'package:tex_stox/presentation/screens/client_screen.dart';
 import 'package:tex_stox/presentation/screens/app.dart';
 import 'package:tex_stox/presentation/screens/dashboard.dart';
 import 'package:tex_stox/presentation/screens/edit_client.dart';
+import 'package:tex_stox/presentation/screens/item_screen.dart';
 
 import '../constants/strings.dart';
 import '../cubit/dashboard_cubit/dashboard_cubit.dart';
@@ -72,6 +73,9 @@ class AppRouter {
                 clientFromClientScreen: client,
               )),
         );
+
+      case kItemScreenRoute:
+        return MaterialPageRoute(builder: (_) => ItemScreen());
 
       default:
         return null;
