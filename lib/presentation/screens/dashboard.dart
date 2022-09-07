@@ -263,14 +263,6 @@ class _DashboardState extends State<Dashboard> {
                               )),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
-                        width: 50,
-                        height: 50,
-                      )
                     ],
                   ),
                 ),
@@ -299,7 +291,9 @@ class _DashboardState extends State<Dashboard> {
                         elementName: "Client",
                         icon: Icons.person),
                     DrawerElement(
-                        navigatorFunction: () {},
+                        navigatorFunction: () {
+                          Navigator.pushNamed(context, kItemScreenRoute);
+                        },
                         context: context,
                         elementName: 'Items',
                         icon: Icons.category),

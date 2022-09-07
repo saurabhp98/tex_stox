@@ -27,7 +27,7 @@ class BottomNavBar extends StatelessWidget {
                       MaterialStateProperty.all(Colors.greenAccent),
                 ),
                 onPressed: () {
-                  BlocProvider.of<DashboardCubit>(context).fetchDashboardData();
+                  Navigator.pushNamed(context, kAddStockRoute);
                 },
                 child: Text('Add Stock')),
           ),

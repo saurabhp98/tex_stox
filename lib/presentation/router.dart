@@ -12,6 +12,8 @@ import 'package:tex_stox/presentation/screens/dashboard.dart';
 import 'package:tex_stox/presentation/screens/edit_client.dart';
 import 'package:tex_stox/presentation/screens/item_screen.dart';
 
+import 'package:tex_stox/presentation/screens/stock_screen.dart';
+
 import '../constants/strings.dart';
 import '../cubit/dashboard_cubit/dashboard_cubit.dart';
 import '../data/models/ClientModel.dart';
@@ -76,6 +78,9 @@ class AppRouter {
 
       case kItemScreenRoute:
         return MaterialPageRoute(builder: (_) => ItemScreen());
+
+      case kAddStockRoute:
+        return MaterialPageRoute(builder: (_) => AddStock());
 
       default:
         return null;
