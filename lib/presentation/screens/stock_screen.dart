@@ -170,14 +170,31 @@ class AddStock extends StatelessWidget {
                                               decoration: InputDecoration(
                                                   labelText: "Enter mtr"),
                                             ),
+                                            SizedBox(
+                                              height: 50,
+                                            ),
                                             Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     Navigator.pop(context);
                                                   },
-                                                  child: Text("Go Back"),
-                                                )
+                                                  child: Text(
+                                                    "Go Back",
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                                ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all(Colors
+                                                                    .greenAccent)),
+                                                    onPressed: () {},
+                                                    child: Text("Add"))
                                               ],
                                             )
                                           ],
