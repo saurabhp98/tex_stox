@@ -6,7 +6,7 @@ import 'package:tex_stox/cubit/client_cubit/add_client_cubit.dart';
 import 'package:tex_stox/cubit/client_cubit/client_cubit_cubit.dart';
 import 'package:tex_stox/data/services/client_services.dart';
 
-import '../../data/models/ClientModel.dart';
+import '../../../data/models/ClientModel.dart';
 
 class AddClient extends StatefulWidget {
   AddClient({Key? key}) : super(key: key);

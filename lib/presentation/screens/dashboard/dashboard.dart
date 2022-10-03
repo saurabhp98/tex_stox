@@ -55,33 +55,36 @@ class _DashboardState extends State<Dashboard> {
                               padding: EdgeInsets.only(
                                   bottom: 8, left: 8, right: 4, top: 8),
                               height: double.infinity,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Current Stock',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  StreamBuilder<dynamic>(
-                                      stream: state.currentStockMtr,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Center(
-                                            child: CircularProgressIndicator(),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Current Stock',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    StreamBuilder<dynamic>(
+                                        stream: state.currentStockMtr,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          }
+                                          return Text(
+                                            snapshot.data.toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold),
                                           );
-                                        }
-                                        return Text(
-                                          snapshot.data.toString(),
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                        );
-                                      })
-                                ],
+                                        })
+                                  ],
+                                ),
                               )),
                         ),
                       ),
@@ -285,14 +288,16 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     DrawerElement(
                         navigatorFunction: () {
-                          Navigator.pushNamed(context, kClientPageRoute);
+                          Navigator.pushNamed(
+                              context, RouteConstants.kClientPageRoute);
                         },
                         context: context,
                         elementName: "Client",
                         icon: Icons.person),
                     DrawerElement(
                         navigatorFunction: () {
-                          Navigator.pushNamed(context, kItemScreenRoute);
+                          Navigator.pushNamed(
+                              context, RouteConstants.kItemScreenRoute);
                         },
                         context: context,
                         elementName: 'Items',
@@ -327,7 +332,7 @@ class _DashboardState extends State<Dashboard> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5),
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
+                      width: 250,
                       decoration: BoxDecoration(
                         border: Border(
                             top: BorderSide(

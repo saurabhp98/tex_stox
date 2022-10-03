@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tex_stox/constants/strings.dart';
 import 'package:tex_stox/cubit/client_cubit/client_cubit_cubit.dart';
 import 'package:tex_stox/data/repository/client_repository.dart';
-import '../../data/models/ClientModel.dart';
-import '../../data/services/client_services.dart';
+import '../../../data/models/ClientModel.dart';
 
 class ClientScreen extends StatelessWidget {
   ClientScreen({Key? key}) : super(key: key);
@@ -26,7 +25,8 @@ class ClientScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, kAddClientRoute);
+                    Navigator.pushNamed(
+                        context, RouteConstants.kAddClientRoute);
                   },
                   child: Icon(Icons.add)),
             ),
@@ -59,7 +59,8 @@ class ClientScreen extends StatelessWidget {
 Widget _clientList(ClientModel client, context) {
   return InkWell(
     onTap: () {
-      Navigator.pushNamed(context, arguments: client, kEditClientRoute);
+      Navigator.pushNamed(
+          context, arguments: client, RouteConstants.kEditClientRoute);
     },
     child: Container(
       margin: EdgeInsets.all(3),

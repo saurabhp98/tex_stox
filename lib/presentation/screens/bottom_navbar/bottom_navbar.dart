@@ -27,7 +27,7 @@ class BottomNavBar extends StatelessWidget {
                       MaterialStateProperty.all(Colors.greenAccent),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, kAddStockRoute);
+                  Navigator.pushNamed(context, RouteConstants.kAddStockRoute);
                 },
                 child: Text('Add Stock')),
           ),
@@ -86,7 +86,8 @@ class BottomSheetAdd extends StatelessWidget {
                 ),
                 BottomSheetElement(
                   onTap: () {
-                    Navigator.pushNamed(context, kAddClientRoute);
+                    Navigator.pushNamed(
+                        context, RouteConstants.kAddClientRoute);
                   },
                   elementName: 'Add Client',
                   iconData: Icons.person,
