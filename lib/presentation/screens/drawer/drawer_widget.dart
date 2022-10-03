@@ -24,7 +24,7 @@ class DrawerElement extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: Container(
-              width: MediaQuery.of(context).size.width / 1.2,
+              width: 250,
               decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(

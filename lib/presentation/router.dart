@@ -5,11 +5,14 @@ import 'package:tex_stox/cubit/client_cubit/client_cubit_cubit.dart';
 import 'package:tex_stox/cubit/client_cubit/edit_client_cubit.dart';
 import 'package:tex_stox/data/repository/client_repository.dart';
 import 'package:tex_stox/data/repository/dashboard_repository.dart';
-import 'package:tex_stox/presentation/screens/add_client.dart';
-import 'package:tex_stox/presentation/screens/client_screen.dart';
+
+import 'package:tex_stox/presentation/screens/client/add_client.dart';
+import 'package:tex_stox/presentation/screens/client/client_screen.dart';
+import 'package:tex_stox/presentation/screens/client/edit_client.dart';
+
 import 'package:tex_stox/presentation/screens/app.dart';
 import 'package:tex_stox/presentation/screens/dashboard.dart';
-import 'package:tex_stox/presentation/screens/edit_client.dart';
+
 import 'package:tex_stox/presentation/screens/item_screen.dart';
 
 import 'package:tex_stox/presentation/screens/stock_screen.dart';
@@ -43,18 +46,18 @@ class AppRouter {
                   value: clientCubit,
                   child: App(),
                 ));
-      case kClientPageRoute:
+      case RouteConstants.kClientPageRoute:
         return MaterialPageRoute(
             builder: (_) =>
                 BlocProvider.value(value: clientCubit, child: ClientScreen()));
-      case kDashBoard:
+      case RouteConstants.kDashBoard:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) =>
                       DashboardCubit(dashboardRepository: dashboardRepository),
                   child: Dashboard(),
                 ));
-      case kAddClientRoute:
+      case RouteConstants.kAddClientRoute:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   // provideing the client repository and client cubit to the addclient
@@ -65,7 +68,7 @@ class AppRouter {
                       clientCubit: clientCubit),
                   child: AddClient(),
                 ));
-      case kEditClientRoute:
+      case RouteConstants.kEditClientRoute:
         ClientModel client = settings.arguments as ClientModel;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -76,10 +79,10 @@ class AppRouter {
               )),
         );
 
-      case kItemScreenRoute:
+      case RouteConstants.kItemScreenRoute:
         return MaterialPageRoute(builder: (_) => ItemScreen());
 
-      case kAddStockRoute:
+      case RouteConstants.kAddStockRoute:
         return MaterialPageRoute(builder: (_) => AddStock());
 
       default:
