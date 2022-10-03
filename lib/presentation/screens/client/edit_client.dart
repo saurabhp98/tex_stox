@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tex_stox/cubit/client_cubit/edit_client_cubit.dart';
 import 'package:tex_stox/presentation/screens/app.dart';
 
-import '../../data/models/ClientModel.dart';
+import '../../../data/models/ClientModel.dart';
 
 class EditClient extends StatelessWidget {
   ClientModel clientFromClientScreen;

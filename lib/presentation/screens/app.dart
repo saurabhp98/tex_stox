@@ -13,7 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     Timer(
       Duration(seconds: 0),
-      () => Navigator.popAndPushNamed(context, kDashBoard),
+      () => Navigator.popAndPushNamed(context, RouteConstants.kDashBoard),
     );
     return Scaffold(
         body: Center(
