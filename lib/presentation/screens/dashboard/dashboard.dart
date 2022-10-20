@@ -5,8 +5,8 @@ import 'package:tex_stox/cubit/dashboard_cubit/dashboard_cubit.dart';
 import 'package:tex_stox/data/models/dashboard_model.dart';
 import 'package:tex_stox/data/services/dashboard_services.dart';
 
-import '../widgets/bottom_navbar.dart';
-import '../widgets/drawer_widget.dart';
+import '../bottom_navbar/bottom_navbar.dart';
+import '../drawer/drawer_widget.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);

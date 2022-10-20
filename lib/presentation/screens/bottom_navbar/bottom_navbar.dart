@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../constants/strings.dart';
-import '../../cubit/dashboard_cubit/dashboard_cubit.dart';
+import '../../../constants/strings.dart';
+import '../../../cubit/dashboard_cubit/dashboard_cubit.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({

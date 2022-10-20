@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class RouteConstants {
   static const kHome = "/";
   static const kDashBoard = "/dash_board";
@@ -11,4 +13,4 @@ class RouteConstants {
 
 class ApiConstants {}
 
-const kBaseUrl = "http://127.0.0.1:8000/api";
+const kBaseUrl = "https://textilestockmanagementerp-production.up.railway.app";

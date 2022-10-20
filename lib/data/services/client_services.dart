@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:tex_stox/constants/strings.dart';
 import 'package:tex_stox/data/repository/client_repository.dart';
 
 import '../models/ClientModel.dart';
@@ -30,7 +31,7 @@ class ClientService {
 
   Future<List<dynamic>> fetchClient() async {
     // url endpoint returning the json object
-    String baseUrl = "http://127.0.0.1:8000/api/client";
+    String baseUrl = "$kBaseUrl/api/client";
     // get request to the endpoint using the url
     final response = await http.get(Uri.parse(baseUrl));
     // since dart doesnt work with json objects
@@ -46,7 +47,7 @@ class ClientService {
 // adding the data recd from the repositoy to the database
   Future addClient(client) async {
     // url end point
-    String baseUrl = "http://127.0.0.1:8000/api/client";
+    String baseUrl = "$kBaseUrl/api/client";
     // encoding the json data through tojosn() method
     // so that it can be accaptable for the api end point
     String recData = jsonEncode(client.tojson());
@@ -67,7 +68,7 @@ class ClientService {
   }
 
   Future editClient(ClientModel client, id) async {
-    String baseUrl = "http://127.0.0.1:8000/api/client/$id";
+    String baseUrl = "$kBaseUrl/api/client/$id";
     String recData = jsonEncode(client.tojson());
     final response = await http.patch(Uri.parse(baseUrl),
         headers: {
@@ -78,7 +79,7 @@ class ClientService {
   }
 
   Future deleteClientFromClientCubit(id) async {
-    String baseUrl = "http://127.0.0.1:8000/api/client/$id";
+    String baseUrl = "$kBaseUrl/api/client/$id";
     final response = await http.delete(
       Uri.parse(baseUrl),
     );
