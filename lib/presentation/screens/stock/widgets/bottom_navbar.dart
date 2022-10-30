@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tex_stox/cubit/client_cubit/client_cubit_cubit.dart';
+import 'package:tex_stox/cubit/stock_cubit/stock_cubit.dart';
 import 'package:tex_stox/data/repository/purchase_repository.dart';
 import 'package:tex_stox/data/services/purchase_services.dart';
 
@@ -26,6 +29,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
+                BlocProvider.of<StockCubit>(context).clearAddStockData();
               },
               child: Text("Cancel"),
               style: ButtonStyle(

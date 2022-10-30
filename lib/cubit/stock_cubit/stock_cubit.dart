@@ -42,4 +42,8 @@ class StockCubit extends Cubit<StockState> {
 
     emit(StockLoaded(stockStream: getAddStockWidgetStream));
   }
+
+  void clearAddStockData() {
+    stockRepository.clearAddStockData();
+  }
 }

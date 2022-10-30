@@ -23,4 +23,8 @@ class StockRepository {
     stockServices.addBulkStock(addStockModel);
     // print("${addStockModel.invNo} ${addStockModel.stock}");
   }
+
+  void clearAddStockData() {
+    addStockWidgetList.clear();
+  }
 }

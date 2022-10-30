@@ -15,6 +15,7 @@ import 'package:tex_stox/presentation/router.dart';
 import 'package:tex_stox/presentation/screens/stock/widgets/add_dialog.dart';
 import 'package:tex_stox/presentation/screens/stock/widgets/add_stock_widget.dart';
 import 'package:tex_stox/presentation/screens/stock/widgets/bottom_navbar.dart';
+import 'package:tex_stox/presentation/screens/stock/widgets/preview_add_stock_widget.dart';
 
 import '../../../cubit/purchase_cubit/purchase_cubit.dart';
 import '../../../cubit/stock_cubit/stock_cubit.dart';
@@ -63,27 +64,34 @@ class _AddStockState extends State<AddStock> {
       bottomNavigationBar: BottomNavbar(
         onImportPressed: () {},
         onAddPressed: () {
-          if (_formKey.currentState!.validate()) {
-            _formKey.currentState?.save();
-          }
+          showDialog(
+              context: context,
+              builder: (context) => Dialog(
+                    insetPadding: EdgeInsets.all(0),
+                    child: PreviewAddStockWidget(),
+                  ));
 
-          print("invno : $invNo");
-          print("invDate: $invDate");
-          print("challanNo: $challanNo");
-          print("challanDate: $challanDate");
-          print("lrNo: $lrNo");
-          print("clientId: $clientId");
-          print("transportId: $transportId");
+          // if (_formKey.currentState!.validate()) {
+          //   _formKey.currentState?.save();
+          // }
 
-          final data = PurchaseModel(
-              invNo: invNo,
-              invDate: invDate.toString(),
-              challanNo: challanNo,
-              challanDate: challanDate,
-              lrNo: lrNo,
-              clientId: clientId,
-              transportId: transportId);
-          BlocProvider.of<StockCubit>(context).addBulkStock(data);
+          // print("invno : $invNo");
+          // print("invDate: $invDate");
+          // print("challanNo: $challanNo");
+          // print("challanDate: $challanDate");
+          // print("lrNo: $lrNo");
+          // print("clientId: $clientId");
+          // print("transportId: $transportId");
+
+          // final data = PurchaseModel(
+          //     invNo: invNo,
+          //     invDate: invDate.toString(),
+          //     challanNo: challanNo,
+          //     challanDate: challanDate,
+          //     lrNo: lrNo,
+          //     clientId: clientId,
+          //     transportId: transportId);
+          // BlocProvider.of<StockCubit>(context).addBulkStock(data);
           // BlocProvider.of<PurchaseCubit>(context).addPurchase(data);
         },
       ),
@@ -190,7 +198,11 @@ class _AddStockState extends State<AddStock> {
                                         ClientCubitState>(
                                     builder: (context, state) {
                                   if (state is! ClientsLoaded) {
-                                    return CircularProgressIndicator();
+                                    return DropDownTextField(
+                                      dropDownList: [],
+                                      textFieldDecoration:
+                                          InputDecoration(hintText: 'Client'),
+                                    );
                                   }
                                   return DropDownTextField(
                                       onChanged: (value) {
@@ -304,14 +316,6 @@ class _AddStockState extends State<AddStock> {
                                 ),
                               ))),
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            valueIn++;
-                          });
-                        },
-                        child: Text('click')),
-                    Text('$valueIn'),
                     Form(
                         child: Container(
                       width: 50,
