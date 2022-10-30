@@ -55,36 +55,35 @@ class _DashboardState extends State<Dashboard> {
                               padding: EdgeInsets.only(
                                   bottom: 8, left: 8, right: 4, top: 8),
                               height: double.infinity,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Current Stock',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    StreamBuilder<dynamic>(
-                                        stream: state.currentStockMtr,
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          }
-                                          return Text(
-                                            snapshot.data.toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'Current Stock',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  StreamBuilder<dynamic>(
+                                      stream: state.currentStockMtr,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
                                           );
-                                        })
-                                  ],
-                                ),
+                                        }
+                                        return Text(
+                                          snapshot.data.toString(),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                        );
+                                      })
+                                ],
                               )),
                         ),
                       ),
